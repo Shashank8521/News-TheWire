@@ -27,6 +27,8 @@ export default function TabLayout() {
       <Tabs.Screen name="video" options={{ title: "Video" }} />
        <Tabs.Screen name="audio" options={{ title: "Audio" }} />
          <Tabs.Screen name="more" options={{ title: "More" }} />
+         <Tabs.Screen name="politics" options={{ title: "Politics" }} />
+
 
     </Tabs>
     </>

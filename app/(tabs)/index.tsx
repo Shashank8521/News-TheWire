@@ -1,7 +1,10 @@
-import { Text, useWindowDimensions, View } from "react-native";
+import { useNavigation, useRouter } from "expo-router";
+
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { JSX } from "react/jsx-runtime";
 //import { View } from "react-native-reanimated/lib/typescript/Animated";
 
-const {width}=useWindowDimensions();
+
 
 interface Article {
   ID?: number;
@@ -13,18 +16,179 @@ interface Article {
 }
 
 //const [article, setArticle] = useState<Article | null>(null);
+const BUTTONS = [
+  { id: "news", label: "Home" },
+  { id: "video", label: "Politics" },
+  { id: "audio", label: "Economy" },
+  { id: "opinion", label: "World" },
+  { id: "sports", label: "Science" },
+  { id: "tech", label: "Society" },
+  { id: "culture", label: "Culture" },
+  { id: "science", label: "Series" },
+  { id: "travel", label: "Entertainment" },
+  { id: "more", label: "More" },
+];
 
 
-export default function HomeScreen() {
- return(
-<View>
-    <Text>
-      hellow from home
-    </Text>
-  </View>
- )
-  ;
+export default function HomeScreen():JSX.Element {
+  const {width}=useWindowDimensions()
+  const router=useRouter
+  const navigation=useNavigation
+  const itemWidth=Math.min(Math.round(width/3))
+
+  const handlePress=(id:string)=>{
+    Alert
+  }
+
+return (
+    // <SafeAreaView style={{ flex: 1}}>
+    <>
+      <View style={{ paddingTop: 0, paddingHorizontal: 4, flex: 1 }}>
+
+
+         {/* <Text> hello from home</Text>
+              <Text> hello from home</Text>
+               <Text> hello from home</Text>
+                <Text> hello from home</Text>
+
+                 <Text> hello from home</Text>
+                  <Text> hello from home</Text>
+                   <Text> hello from home</Text>
+                    <Text> hello from home</Text>
+                     <Text> hello from home</Text>
+                      <Text> hello from home</Text>
+                       <Text> hello from home</Text> */}
+
+
+        {/* Horizontal buttons */}
+        <View style={{marginBottom: 2,flex:0}}>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={ { flexWrap:"wrap",alignItems:"flex-start",paddingLeft:1,paddingRight:1,}}
+            // snapToInterval={itemWidth + 12} // optional snapping
+            decelerationRate="fast"
+          >
+            {BUTTONS.map((b,i) => (
+                <View key={b.id} style={{ flexDirection: "row", alignItems:"flex-start",justifyContent:'flex-start' }}>
+
+              <TouchableOpacity
+                key={b.id}
+                style={styles.button }
+                onPress={() => handlePress(b.id)}
+                activeOpacity={0.75}
+              >
+                <Text style={{fontSize:15}}>{b.label}</Text>
+              </TouchableOpacity>
+              
+            
+             {/* {i < BUTTONS.length - 1 && (
+       <View style={{
+         width: 0,
+         height: 0,
+         backgroundColor: "#000", // light gray
+                     // justifyContent:'center'
+          alignSelf:"center",
+                    }} />
+             )
+            } */}
+            </View>
+            ))
+            }
+            {/* <View>
+             <Text> hello from home</Text>
+              <Text> hello from home</Text>
+               <Text> hello from home</Text>
+                <Text> hello from home</Text>
+
+                 <Text> hello from home</Text>
+                  <Text> hello from home</Text>
+                   <Text> hello from home</Text>
+                    <Text> hello from home</Text>
+                     <Text> hello from home</Text>
+                      <Text> hello from home</Text>
+                       <Text> hello from home</Text>
+                       </View> */}
+            </ScrollView>
+
+          
+        </View>
+
+        {/* Rest of home content */}
+        {/* <View >
+          <Text style={{ color: "#444" }}>
+            Your home page content goes here. The row above is only on the Home page.
+          </Text>
+        </View> */}
+        <Text> hello from home5</Text>
+      </View>
+      <View>
+       <Text> hello from home10</Text>
+       </View> 
+       </>
+    // </SafeAreaView>
+  );
 }
+
+
+ const styles = StyleSheet.create({
+  safe: { flex: 1},
+  container: { paddingTop: 0, paddingHorizontal: 5, flex: 1 },
+  heading: { fontSize: 10, fontWeight: "700", marginBottom: 2 },
+  rowWrap: {marginBottom: 2,
+  // alignItems: "center",
+  },
+  scrollContent: {
+    alignItems: "center",
+    paddingLeft:1,
+    paddingRight:1,
+    },
+  // button: {
+  // shadowOffset: { width: 0, height: 1 },
+  //   },
+  // buttonText: { fontSize: 15, fontWeight: "700", color: "#111" },
+   button: {
+    height: 25,
+    marginRight: 2,
+    // minWidth: "1%",
+    // maxWidth:"100%",
+    borderRadius: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: 'center',
+    alignSelf:"flex-start",
+    // elevation: 2, // android shadow
+    // shadowColor: "#000",
+    // shadowOpacity: 0.06,
+    // shadowOffset: { width: 0, height: 1 },
+    // shadowRadius: 4,
+    paddingHorizontal: 5,
+    },
+    buttonText:{
+      fontSize: 30, fontWeight: "700", color: "#111"
+    },
+    // body: { marginTop: 1,  },
+    verticalDivider: {
+      width: 0,
+      height: 0, // line height relative to button
+      backgroundColor: "#fff", // light gray
+      // justifyContent:'center'
+      alignSelf:"center",
+    },
+    });
+  
+
+
+//  return(
+// <View>
+//     <Text>
+//       hellow from home
+//     </Text>
+//   </View>
+//  )
+//   ;
+// }
 // import React from "react";
 // import { View } from "react-native";
 // import YoutubePlayer from "react-native-youtube-iframe";
