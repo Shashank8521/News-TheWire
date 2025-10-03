@@ -178,14 +178,10 @@ const handlePress =(article:Article)=>{
         </View>
         </View>
          </Pressable>
-        
-  ))}
-</View>
-
+          ))}
 </View>
 </View>
-
-
+</View>
       {/* <View style={{ paddingHorizontal: 10 }}>
         <Text style={{ fontSize: 10, color: "gray", marginTop: 4 }}>
           {articles?.featured_image_caption}
