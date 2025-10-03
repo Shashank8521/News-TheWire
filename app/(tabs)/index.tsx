@@ -1,6 +1,6 @@
 import { useNavigation, useRouter } from "expo-router";
 
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { JSX } from "react/jsx-runtime";
 //import { View } from "react-native-reanimated/lib/typescript/Animated";
 
@@ -18,26 +18,32 @@ interface Article {
 //const [article, setArticle] = useState<Article | null>(null);
 const BUTTONS = [
   { id: "news", label: "Home" },
-  { id: "video", label: "Politics" },
-  { id: "audio", label: "Economy" },
-  { id: "opinion", label: "World" },
-  { id: "sports", label: "Science" },
-  { id: "tech", label: "Society" },
-  { id: "culture", label: "Culture" },
-  { id: "science", label: "Series" },
-  { id: "travel", label: "Entertainment" },
+  { id: "Politics", label: "Politics" },
+  { id: "Economy", label: "Economy" },
+  { id: "World", label: "World" },
+  { id: "Security", label: "Security" },
+  { id: "Law", label: "Law" },
+  { id: "Science" , label: "Science" },
+  { id: "Society", label: "Society" },
+  { id: "Culture", label: "Culture" },
   { id: "more", label: "More" },
 ];
 
 
 export default function HomeScreen():JSX.Element {
   const {width}=useWindowDimensions()
-  const router=useRouter
+  const router=useRouter()
   const navigation=useNavigation
   const itemWidth=Math.min(Math.round(width/3))
 
+  // const router = useRouter()
+
   const handlePress=(id:string)=>{
-    Alert
+    router.push({
+      pathname : '/[id]',
+      params :{id}
+    })
+    
   }
 
 return (
@@ -73,14 +79,14 @@ return (
             {BUTTONS.map((b,i) => (
                 <View key={b.id} style={{ flexDirection: "row", alignItems:"flex-start",justifyContent:'flex-start' }}>
 
-              <TouchableOpacity
+              <Pressable
                 key={b.id}
-                style={styles.button }
+                style={({pressed})=>[styles.button,{borderBottomColor:pressed ? "#000" : "#fff",backgroundColor:pressed ? "#444" :"#08cc43ff" }]}
                 onPress={() => handlePress(b.id)}
-                activeOpacity={0.75}
+                // activeOpacity={0.75}
               >
                 <Text style={{fontSize:15}}>{b.label}</Text>
-              </TouchableOpacity>
+              </Pressable>
               
             
              {/* {i < BUTTONS.length - 1 && (
@@ -121,7 +127,7 @@ return (
             Your home page content goes here. The row above is only on the Home page.
           </Text>
         </View> */}
-        <Text> hello from home5</Text>
+        <Text> hello from home</Text>
       </View>
       <View>
        <Text> hello from home10</Text>
@@ -154,7 +160,7 @@ return (
     // minWidth: "1%",
     // maxWidth:"100%",
     borderRadius: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#08cc43ff",
     justifyContent: "center",
     alignItems: 'center',
     alignSelf:"flex-start",

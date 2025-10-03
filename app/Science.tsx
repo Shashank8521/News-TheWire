@@ -30,15 +30,15 @@ const [html2, setHtml2] = useState<string>("")
 const [html1, setHtml1] = useState<string>("")
 const { width } = useWindowDimensions(); // ✅ move inside component
 const[fontLoaded]=useFonts({
-    MyFontItalic:require("../../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
-    MyFontBasic:require("../../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
+    MyFontItalic:require("../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
+    MyFontBasic:require("../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
   //  MySuperBasic:require("../../assets/fonts/SpaceMono-Regular")
   })
 //   const playerHeight = Math.round((width * 9) / 16);
 var size
 useEffect(() => {
     axios
-    .get("https://wire-proxy-backend.onrender.com/politics")
+    .get("https://wire-proxy-backend.onrender.com/science")
     .then((res) => {
         const first=(res.data)|| ""
         // setArticles(first.generic)
@@ -85,7 +85,7 @@ const handlePress =(article:Article)=>{
       <View style={{marginBottom:10}}>
       <View style={{ paddingHorizontal: 0,}}>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
-          Articles from Express/
+          Articles from Science
           </Text>
           <View>
             {Object.values(highlight).map((article: Article, index: number) => (

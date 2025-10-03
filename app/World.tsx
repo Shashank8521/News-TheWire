@@ -15,6 +15,7 @@ interface Article {
   featured_image_caption?: string;
   post_author_name?: { author_name: string; cd?: string; pl?: string }[];
   post_excerpt?: string;
+  prime_category?:{name:string}[]
 }
 
 
@@ -30,15 +31,15 @@ const [html2, setHtml2] = useState<string>("")
 const [html1, setHtml1] = useState<string>("")
 const { width } = useWindowDimensions(); // ✅ move inside component
 const[fontLoaded]=useFonts({
-    MyFontItalic:require("../../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
-    MyFontBasic:require("../../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
+    MyFontItalic:require("../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
+    MyFontBasic:require("../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
   //  MySuperBasic:require("../../assets/fonts/SpaceMono-Regular")
   })
 //   const playerHeight = Math.round((width * 9) / 16);
 var size
 useEffect(() => {
     axios
-    .get("https://wire-proxy-backend.onrender.com/politics")
+    .get("https://wire-proxy-backend.onrender.com/world")
     .then((res) => {
         const first=(res.data)|| ""
         // setArticles(first.generic)
@@ -85,7 +86,7 @@ const handlePress =(article:Article)=>{
       <View style={{marginBottom:10}}>
       <View style={{ paddingHorizontal: 0,}}>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
-          Articles from Express/
+          Articles from World
           </Text>
           <View>
             {Object.values(highlight).map((article: Article, index: number) => (
@@ -132,6 +133,9 @@ const handlePress =(article:Article)=>{
         <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 5 }}>
           {article?.post_author_name?.[0].author_name}
         </Text>
+        <Text style={{fontSize:10,paddingTop:15}}>
+                {article.post_date}
+            </Text>
         </View>
 
         {/* <Text style={{ fontSize: 15, marginTop: 10, fontWeight: "500", marginBottom: 10, fontFamily: "MyFontItalic" }}>
@@ -159,20 +163,29 @@ const handlePress =(article:Article)=>{
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
   }>
         {/* <View style={{flex:1,flexDirection:"row",paddingRight:20}}> */}
-        <View style={{flex:1,flexDirection:"row",marginLeft:10}}>
+        <View style={{flex:2,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
         {article?.featured_image?.source_url && (
             <Image
             source={{uri:article.featured_image.source_url}}
             style={{width:50,height:80,flex:1}}/>
         )}
         {/* </View> */}
-        <View style={{flex:2,justifyContent:"space-between",marginLeft:10}}>
+        <View style={{flex:1,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
+            <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
+            <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
+                {article?.prime_category?.[0].name}
+            </Text>
             <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
                 {article.post_title}
             </Text>
-            <Text style={{fontSize:10,paddingTop:15}}>
+             <Text style={{ fontSize: 10, paddingTop:8 }}>
+          {article?.post_author_name?.[0].author_name}
+        </Text>
+        </View>
+            {/* <Text style={{fontSize:10,paddingTop:15}}>
                 {article.post_date}
-            </Text>
+            </Text> */}
+            
             {/* <Text style={{fontSize:5}}>
                 {artic}
             </Text> */}
