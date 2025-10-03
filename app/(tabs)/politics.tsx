@@ -15,9 +15,6 @@ interface Article {
   post_author_name?: { author_name: string; cd?: string; pl?: string }[];
   post_excerpt?: string;
 }
-
-
-
 export default function Politics():JSX.Element {
 // const [articles, setArticles] = useState<Article | null>(null);
 const[highlight,setHighlight]=useState<Record<string,Article>>({});
@@ -232,8 +229,6 @@ const handlePress =(article:Article)=>{
           <Text style={{ color: "gray" }}>No YouTube iframes found in content.</Text>
         </View>
       )} */}
-
-    
-    </SafeAreaView>
+  </SafeAreaView>
   </ScrollView>
 )}
