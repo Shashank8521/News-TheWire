@@ -18,14 +18,14 @@ interface Article {
 //const [article, setArticle] = useState<Article | null>(null);
 const BUTTONS = [
   { id: "news", label: "Home" },
-  { id: "Politics", label: "Politics" },
-  { id: "Economy", label: "Economy" },
-  { id: "World", label: "World" },
-  { id: "Security", label: "Security" },
-  { id: "Law", label: "Law" },
-  { id: "Science" , label: "Science" },
-  { id: "Society", label: "Society" },
-  { id: "Culture", label: "Culture" },
+  { id: "politics", label: "Politics" },
+  { id: "economy", label: "Economy" },
+  { id: "world", label: "World" },
+  { id: "security", label: "Security" },
+  { id: "law", label: "Law" },
+  { id: "science" , label: "Science" },
+  { id: "society", label: "Society" },
+  { id: "culture", label: "Culture" },
   { id: "more", label: "More" },
 ];
 
@@ -40,7 +40,7 @@ export default function HomeScreen():JSX.Element {
 
   const handlePress=(id:string)=>{
     router.push({
-      pathname : '/[id]',
+      pathname : "/World",
       params :{id}
     })
     

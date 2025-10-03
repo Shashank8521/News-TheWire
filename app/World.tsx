@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useFonts } from "expo-font";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { JSX, useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,11 +19,11 @@ interface Article {
 }
 
 
-
-export default function Politics():JSX.Element {
+export default function Politics({}):JSX.Element {
+  const {id} = useLocalSearchParams<{id:string}>()
 // const [articles, setArticles] = useState<Article | null>(null);
-const[highlight,setHighlight]=useState<Record<string,Article>>({});
 const[recent,setRecent]=useState<Record<string,Article>>({});
+const[highlight,setHighlight]=useState<Record<string,Article>>({});
 const[article1,setArticle1]=useState<Article | null>(null);
 //    const [videoIds, setVideoIds] = useState<string[]>([]);
 const [html, setHtml] = useState<string>("")
@@ -38,8 +38,12 @@ const[fontLoaded]=useFonts({
 //   const playerHeight = Math.round((width * 9) / 16);
 var size
 useEffect(() => {
+  if(!id){
+    console.log("something wrogn")
+    return
+  } 
     axios
-    .get("https://wire-proxy-backend.onrender.com/world")
+    .get(`https://wire-proxy-backend.onrender.com/${id}`)
     .then((res) => {
         const first=(res.data)|| ""
         // setArticles(first.generic)
@@ -94,7 +98,7 @@ const handlePress =(article:Article)=>{
     // android_ripple={{color:'#3b3c3eff'}} 
     style=
     {({pressed})=>
-      [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#FFF",paddingTop:20,
+      [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
     paddingBottom:10,
     marginBottom:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -157,20 +161,20 @@ const handlePress =(article:Article)=>{
     // android_ripple={{color:'#1D4ED8'}} 
     style=
     {({pressed})=>
-      [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#FFF",paddingTop:20,
+      [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
     paddingRight:10,paddingBottom:10,
     marginRight:5,marginBottom:5,marginLeft:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
   }>
         {/* <View style={{flex:1,flexDirection:"row",paddingRight:20}}> */}
-        <View style={{flex:2,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
+        <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
         {article?.featured_image?.source_url && (
             <Image
             source={{uri:article.featured_image.source_url}}
             style={{width:50,height:80,flex:1}}/>
         )}
         {/* </View> */}
-        <View style={{flex:1,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
+        <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
             <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
             <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
                 {article?.prime_category?.[0].name}

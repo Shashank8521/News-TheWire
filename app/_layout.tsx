@@ -8,7 +8,7 @@ function SmallBrandTitle(){
      
     <>
    
-      <View style={{alignSelf:"center",height:80}}>
+      <View style={{alignSelf:"center",justifyContent:"center",height:50}}>
           <Text style={{fontSize:30, fontWeight:'800'}}> The WIRE </Text>
         </View>
   
@@ -20,8 +20,9 @@ export default function RootLayout() {
   return (
     <>
       <Stack 
-      screenOptions={{ headerShown:false,
-      
+      screenOptions={{ headerShown:true,
+        
+      // /headerStyle:{height:100},
       headerTitle:()=><SmallBrandTitle/>,
        headerTitleAlign: "center",
       }}>

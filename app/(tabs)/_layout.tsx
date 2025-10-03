@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Navigator, Tabs, withLayoutContext } from "expo-router";
 import { Text, View } from "react-native";
 
 
@@ -14,15 +14,19 @@ function SmallBrandTitle(){
 </>
   )
 }
+const TopTabs =withLayoutContext(Navigator)
 export default function TabLayout() {
  
  return(
   <>
-    <Tabs screenOptions={{ headerShown: true,
+    <Tabs screenOptions={{ headerShown: false,
       headerStyle:{height:80},
       headerTitle:()=><SmallBrandTitle/>,
-       headerTitleAlign: "center",
+      headerTitleAlign: "center",
+      sceneStyle :{backgroundColor:"#f6efdeff"}
+
     }}>
+      
         <Tabs.Screen name="index" options={{ title: "Home" }} />
       <Tabs.Screen name="video" options={{ title: "Video" }} />
        <Tabs.Screen name="audio" options={{ title: "Audio" }} />
