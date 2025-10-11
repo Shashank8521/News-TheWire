@@ -8,7 +8,7 @@ function SmallBrandTitle(){
     <>
    
       <View style={{alignSelf:"center",}}>
-          <Text style={{fontSize:30, fontWeight:'800'}}> The WIRE </Text>
+          <Text style={{fontSize:30, fontWeight:'800'}}> The WIR </Text>
         </View>
   
 </>
@@ -20,7 +20,7 @@ export default function TabLayout() {
  return(
   <>
     <Tabs screenOptions={{ headerShown: false,
-      headerStyle:{height:80},
+      headerStyle:{height:0},
       headerTitle:()=><SmallBrandTitle/>,
       headerTitleAlign: "center",
       sceneStyle :{backgroundColor:"#f6efdeff"}

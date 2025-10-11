@@ -13,11 +13,10 @@ interface Article {
   post_title: string;
   featured_image: {source_url:string};
   featured_image_caption?: string;
-  post_author_name?: { author_name: string; cd?: string; pl?: string }[];
+  post_author_name?: { author_name: string; author_slug?: string; author_avatar?: string }[];
   post_excerpt?: string;
   prime_category?:{name:string}[]
 }
-
 
 export default function Politics({}):JSX.Element {
   const {id} = useLocalSearchParams<{id:string}>()
@@ -203,8 +202,18 @@ const handlePress =(article:Article)=>{
   ))}
 </View>
 
+<View style={{flexDirection:"column",justifyContent:"center",backgroundColor:"#15130fff",paddingTop:20,
+    paddingBottom:10,
+    marginBottom:5,
+    borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2,minHeight:500}}>
+      <Text style={{color:"#fff"}}>
+      Hellow from bottom
+      </Text>
+    </View>
+
 </View>
 </View>
+
 
 
       {/* <View style={{ paddingHorizontal: 10 }}>

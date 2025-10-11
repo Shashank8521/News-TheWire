@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useFonts } from "expo-font";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, useWindowDimensions, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, useWindowDimensions, View } from "react-native";
 import RenderHtml from "react-native-render-html";
 import { SafeAreaView } from "react-native-safe-area-context";
 import YoutubePlayer from "react-native-youtube-iframe";
-
 
 interface Article {
   ID?: number;
@@ -15,8 +14,20 @@ interface Article {
   post_title: string;
   featured_image: [string, number, number, boolean];
   featured_image_caption?: string;
-  post_author_name?: { author_name: string; cd?: string; pl?: string }[];
+  post_author_name?: { author_name: string; author_slug?: string; author_avatar?: string }[];
   post_excerpt?: string;
+  date_time_display?:string;
+}
+interface Related {
+  ID?: number;
+  post_date: string;
+  post_content: string;
+  post_title: string;
+  featured_image: string;
+  featured_image_caption?: string;
+  post_author_name?: string;
+  post_excerpt?: string;
+  date_time_display?:string;
 }
 function extractYouTubeIdsFromHtml(html: string): string[] {
   const ids = new Set<string>();
@@ -40,9 +51,11 @@ function extractYouTubeIdsFromHtml(html: string): string[] {
 export default function Audio() {
   const [articles, setArticles] = useState<Article | null>(null);
   const [html, setHtml] = useState<string>("")
+  
   const { width } = useWindowDimensions(); // ✅ move inside component
   const {article1} = useLocalSearchParams();
-     const [videoIds, setVideoIds] = useState<string[]>([]);
+  const [videoIds, setVideoIds] = useState<string[]>([]);
+  const [related,setRelated] = useState<Related | null >(null);
 
   let parsedarticle1:any = null;
 // console.log(`article1 is this ${article1}`)
@@ -60,6 +73,14 @@ export default function Audio() {
   })
   // console.log(`parsed is this ${parsedarticle1}`)
 const playerHeight = Math.round((width * 9) / 16);
+const handlePress = ()=>{
+  router.push({
+    pathname:"/author",
+    params:{
+      author:JSON.stringify(articles?.post_author_name?.[0])
+    }
+  })
+}
   useEffect(() => {
    
     if( !parsedarticle1 || !parsedarticle1?.["post_name"]  ){
@@ -67,22 +88,35 @@ const playerHeight = Math.round((width * 9) / 16);
       return
     }
    
-    
-  
-    axios
-      .get(`https://wire-proxy-backend.onrender.com/articles/${parsedarticle1["post_name"]}`)
-      .then((res) => {
-        setArticles(res.data["post-detail"][0])
-        const postContent=(articles?.post_content) ||"" 
+  const fetchData = async () => {
+    try {  
+  const [res1,res2] = await Promise.all([
+    axios.get(`https://wire-proxy-backend.onrender.com/articles/${parsedarticle1["post_name"]}`),
+    axios.get(`https://wire-proxy-backend.onrender.com/articles/${parsedarticle1["post_name"]}`)])
+
+      // .then(
+        setArticles(res1.data["post-detail"][0])
+       
+        const postContent=(res1.data?.post_content) ||"" 
         setHtml(postContent)
          const ids = extractYouTubeIdsFromHtml(postContent);
          if(ids){
         setVideoIds(ids);
          }
-      })
+        setRelated(res2.data[1])
+        }
+     catch(err){
+      console.log(err)
+     };
+    }
+
+    fetchData()
       
-      .catch((err) => console.error(err));
-  }, [parsedarticle1]);
+      
+}, []);
+
+
+
   const htmlWithoutIframes = html.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
 
   return (
@@ -97,13 +131,29 @@ const playerHeight = Math.round((width * 9) / 16);
           {articles?.post_title}
         </Text>
 
-        <Text style={{ marginTop: 15, marginBottom: 15,paddingLeft:6 }}>
-          {articles?.post_date}
-        </Text>
+        
+        <Pressable onPress={handlePress}>
+        <View style = {{flexDirection:"row",alignItems:"center"}}>
+        <View style={{paddingLeft:6}}>
+          <Image
+          source={{uri:articles?.post_author_name?.[0].author_avatar}}
+          style = {{width:35,height:35,borderRadius:30,borderWidth:1.5,borderColor:"#fff"}}/>
+          </View>
+          <View style={{flexDirection:"column",paddingLeft:10,paddingTop:10}}>
 
-        <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 5,paddingLeft:6 }}>
+        <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 0,paddingLeft:0 }}>
           {articles?.post_author_name?.[0].author_name}
         </Text>
+        <Text style={{ marginTop: 0, marginBottom: 10,paddingTop:3,color:"#726d6dff" }}>
+          {articles?.date_time_display}
+         </Text>
+        </View>
+        </View>
+        </Pressable>
+
+      
+
+        
 
         <Text style={{ fontSize: 15, marginTop: 10, fontWeight: "500", paddingBottom: 20, fontFamily: "MyFontItalic",paddingLeft:6 }}>
           {articles?.post_excerpt}
@@ -141,7 +191,7 @@ const playerHeight = Math.round((width * 9) / 16);
             h1: { fontFamily: "MyFontBasic",fontSize: 15, fontWeight: "bold", marginBottom: 12 },
             h2: { fontFamily: "MyFontBasic",fontSize: 23, fontWeight: "bold", marginBottom: 10 },
             h3: { fontFamily: "MyFontBasic",fontSize: 23, fontWeight: "bold", marginBottom: 8 },
-            a: { color: "#1D4ED8", textDecorationLine: "underline" },
+            a: { color: "#920e19ff", textDecorationLine: "underline", },
             blockquote: {
               borderLeftWidth: 4,
               borderLeftColor: "#ccc",
@@ -165,6 +215,16 @@ const playerHeight = Math.round((width * 9) / 16);
           <Text style={{ color: "gray" }}></Text>
         </View>
       )}
+      <View style={{paddingLeft:6}}>
+        <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
+          Related Articles
+        </Text>
+        <Text >
+          {related?.post_title}
+
+        </Text>
+
+      </View>
     </SafeAreaView>
   </ScrollView>
 );
