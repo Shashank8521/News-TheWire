@@ -126,7 +126,6 @@ const handlePress2 = (related:Related)=>{
   const [res1,res2] = await Promise.all([
     axios.get(`https://wire-proxy-backend.onrender.com/articles/${parsedarticle1["post_name"]}`),
     axios.get(`https://wire-proxy-backend.onrender.com/related/${encodeURIComponent(`${category}/${postname}`)}`)])
-
       // .then(
         setArticles(res1.data["post-detail"][0])
        
@@ -150,7 +149,7 @@ const handlePress2 = (related:Related)=>{
 
 
 // console.log(related);
-{related.map((article: Related, index: number) => (console.log(`hellow from inside ${article}`)))}
+// {related.map((article: Related, index: number) => (console.log(`hellow from inside ${article}`)))}
 
   const htmlWithoutIframes = html.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
 

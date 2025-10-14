@@ -82,6 +82,8 @@ const handlePress =(article:Article)=>{
 
 
 
+// {highlight.map((article: Article, index: number) => (console.log(`hellow from inside ${article}`)))}
+// console.log(Object.values(highlight))
 
   return (
   <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
@@ -92,7 +94,9 @@ const handlePress =(article:Article)=>{
           Articles from World
           </Text>
           <View>
-            {Object.values(highlight).map((article: Article, index: number) => (
+            {Object.values(highlight)
+            .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+            .map((article: Article, index: number) => (
              <Pressable key={article.ID ?? index} onPress={()=>handlePress(article) }
     // android_ripple={{color:'#3b3c3eff'}} 
     style=
@@ -154,7 +158,9 @@ const handlePress =(article:Article)=>{
       
       
     <View>
-    {Object.values(recent).map((article: Article, index: number) => (
+    {Object.values(recent)
+    .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+    .map((article: Article, index: number) => (
 
     <Pressable key={article.ID ?? index} onPress={()=>handlePress(article) }
     // android_ripple={{color:'#1D4ED8'}} 

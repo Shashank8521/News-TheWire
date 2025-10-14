@@ -18,6 +18,14 @@ function SmallBrandTitle(){
 </>
   )
 }
+const router = useRouter()
+ const handlePress2 = () => {
+    router.push({
+      pathname : "/menu"
+    })
+   }
+
+
 export function Butt(){
   const BUTTONS = [
   { id: "home", label: "Home" },
@@ -32,7 +40,9 @@ export function Butt(){
   { id: "more", label: "More" },
 ]
 const[activebutton,setActivebutton] = useState("home");
+
   const router = useRouter();
+
   const handlePress=(id:string)=>{
     if (id == "home"){
     router.push({
@@ -44,8 +54,10 @@ const[activebutton,setActivebutton] = useState("home");
         params :{id}
       })
     }
-   
-  }
+   }
+
+  
+
       
     
   
@@ -77,7 +89,7 @@ const[activebutton,setActivebutton] = useState("home");
                           
                           borderBottomColor : activebutton === b.id ? "#ef1212ff" :pressed ? "#444" :"#f6d484ff" ,
                           backgroundColor:pressed ? "#444" :"#f6efdeff" }]}
-                      onPress={() =>{
+                      onPress={() => {
                         setActivebutton(b.id) ;
                         handlePress(b.id)}
                       }
@@ -107,7 +119,7 @@ export default function RootLayout() {
       // /headerStyle:{height:100},
        headerLeft:() => (
         <Pressable
-        onPress={()=>alert("buttonn pressed")}
+        onPress={handlePress2}
         style={{backgroundColor:"#333",marginRight:10,}}>
           <Text style={{color:"#fff"}}>GO</Text>
         </Pressable>

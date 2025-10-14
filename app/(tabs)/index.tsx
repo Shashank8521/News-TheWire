@@ -190,7 +190,9 @@ return (
                       Articles from Home
                       </Text>
                       <View>
-                        {Object.values(highlight).map((article1: Article, index: number) => (
+                        {Object.values(highlight)
+                        .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                        .map((article1: Article, index: number) => (
                          <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
@@ -269,7 +271,9 @@ return (
           >
                       
                       
-                        {Object.values(editorschoice).map((article1: Article, index: number) => (
+                        {Object.values(editorschoice)
+                        .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                        .map((article1: Article, index: number) => (
                           <View>
                          <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
@@ -349,7 +353,9 @@ return (
                  </View>
 
                   <View>
-                     {Object.values(recent).map((article1: Article, index: number) => (
+                     {Object.values(recent)
+                     .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                     .map((article1: Article, index: number) => (
                  
                      <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
@@ -415,7 +421,9 @@ return (
                       </Text>
                       </View>
                   <View>
-                     {Object.values(recentstoriesjustin).map((article1: Article, index: number) => (
+                     {Object.values(recentstoriesjustin)
+                     .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                     .map((article1: Article, index: number) => (
                  
                      <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
@@ -475,7 +483,9 @@ return (
           >
                       
                       
-                        {Object.values(videos).map((article1: Article, index: number) => (
+                        {Object.values(videos)
+                        .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                        .map((article1: Article, index: number) => (
                           <View>
                          <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
@@ -560,7 +570,9 @@ return (
                       Opinion
                       </Text>
                   <View>
-                     {Object.values(opinion).map((article1: Article, index: number) => (
+                     {Object.values(opinion)
+                     .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+                     .map((article1: Article, index: number) => (
                  
                      <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
@@ -578,7 +590,8 @@ return (
                              {/* <View style={{ flexDirection:"row",}}> */}
                               <View style={{paddingLeft:10}}>
                                <Image
-                               source={{uri:article1?.post_author_name?.[0].author_avatar}}
+                               source={ {uri:article1?.post_author_name?.[0]?.author_avatar ?
+                               article1.post_author_name?.[0].author_avatar : "https://cdn-icons-png.flaticon.com/512/847/847969.png" }}
                                style = {{width:75,height:75,borderRadius:50,}}/>
                                </View>
                               <View style={{flex:1,flexShrink:1,flexDirection:'column',justifyContent:'center',paddingLeft:30}}>
