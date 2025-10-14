@@ -16,8 +16,8 @@ interface Article {
   featured_image_caption?: string;
   post_author_name?: { author_name: string; author_slug?: string; author_avatar?: string }[];
   post_excerpt?: string;
-  date_time_display?:string;
   post_name:string;
+  date_time_display?:string;
   prime_category?:{name:string,slug:string}[]
 
 }
@@ -26,11 +26,11 @@ interface Related {
   post_date: string;
   post_content: string;
   post_title: string;
-  post_name:string;
   featured_image: string;
   featured_image_caption?: string;
   post_author_name?: string;
   date_time_display?:string;
+  post_name:string;
   prime_category?:string
 
 }
@@ -67,7 +67,9 @@ export default function Audio() {
 // console.log(`article1 is this ${article1}`)
   try {
     // console.log(parsedarticle1)
+    // console.log(JSON)
   parsedarticle1 = article1 ? JSON.parse(article1 as string) : null;
+//   console.log(parsedarticle1)
 } catch (err) {
   console.error("❌ Failed to parse article1:", article1, err);
 }
@@ -77,8 +79,8 @@ const category:string = parsedarticle1.prime_category[0].slug
 const postname:string = parsedarticle1["post_name"]
   
   const[fontLoaded]=useFonts({
-    MyFontItalic:require("../../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
-    MyFontBasic:require("../../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
+    MyFontItalic:require("../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
+    MyFontBasic:require("../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
   //  MySuperBasic:require("../../assets/fonts/SpaceMono-Regular")
   })
   // console.log(`parsed is this ${parsedarticle1}`)
@@ -106,14 +108,14 @@ const handlePress2 = (related:Related)=>{
   prime_category:related.prime_category ? [{name:related.prime_category,slug:related.prime_category}]:[]
   }
   router.push({
-    pathname :"/audio2",
+    pathname :"/(tabs)/audio",
     params:{article1:JSON.stringify(convertedRelated)}
   })
 }
   useEffect(() => {
    
     if( !parsedarticle1 || !parsedarticle1?.["post_name"]  ){
-      console.log(`parsed is not ready${parsedarticle1}`) 
+    //   console.log(`parsed is not ready${parsedarticle1}`) 
       return
     }
     // console.log("Related:", related);
@@ -147,6 +149,8 @@ const handlePress2 = (related:Related)=>{
 }, []);
 
 
+// console.log(related);
+{related.map((article: Related, index: number) => (console.log(`hellow from inside ${article}`)))}
 
   const htmlWithoutIframes = html.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
 
@@ -235,6 +239,7 @@ const handlePress2 = (related:Related)=>{
         />
         </View>
       </View>
+      
       {videoIds.length > 0 ? (
         videoIds.map((id) => (
           <View key={id} style={{ width, height: playerHeight, marginBottom: 12, paddingRight:10, paddingLeft:10 }}>
@@ -246,13 +251,15 @@ const handlePress2 = (related:Related)=>{
           <Text style={{ color: "gray" }}></Text>
         </View>
       )}
-      {/* <View style={{paddingLeft:6}}>
+   
+        <View style={{paddingLeft:6}}>
         <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
           Related Articles
         </Text>
-       <View> */}
-        
-           {/* {related.map((article: Related, index: number) => (
+
+
+           {related.map((article: Related, index: number) => (
+            
        
            <Pressable key={article.ID ?? index} onPress={()=>handlePress2(article) }
            // android_ripple={{color:'#1D4ED8'}} 
@@ -262,27 +269,29 @@ const handlePress2 = (related:Related)=>{
            paddingRight:10,paddingBottom:10,
            marginRight:5,marginBottom:5,marginLeft:5,
            borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
-         }> */}
-               {/* <View style={{flex:1,flexDirection:"row",paddingRight:20}}> */}
-               {/* <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}> */}
-               {/* {article?.featured_image && (
+         }>
+            
+               <View style={{flex:1,flexDirection:"row",paddingRight:20}}>
+               <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
+               {article?.featured_image && (
                    <Image
                    source={{uri:article.featured_image}}
                    style={{width:50,height:80,flex:1}}/>
-               )} */}
-               {/* </View> */}
-               {/* <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
+               )}
+               </View>
+
+               <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
                    <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
-                   <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
+                      <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
                        {article?.prime_category}
-                   </Text>
-                   <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
+                       </Text>
+                       <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
                        {article.post_title}
-                   </Text> */}
+                        </Text>
                     {/* <Text style={{ fontSize: 10, paddingTop:8 }}>
                  {article?.post_author_name?.[0].author_name}
                </Text> */}
-               {/* </View> */}
+               </View>
                    {/* <Text style={{fontSize:10,paddingTop:15}}>
                        {article.post_date}
                    </Text> */}
@@ -299,77 +308,14 @@ const handlePress2 = (related:Related)=>{
                
          {/* ))} */}
        {/* </View> */}
-         <View style={{paddingLeft:6}}>
-               <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
-                 Related Articles
-               </Text>
+       </View>
+       </View>
+       </Pressable>
+           ))}
+       </View>
+           
        
-             
-               
-                  {related.map((article: Related, index: number) => (
-              
-                  <Pressable key={article.ID ?? index} onPress={()=>handlePress2(article) }
-                  // android_ripple={{color:'#1D4ED8'}} 
-                  style=
-                  {({pressed})=>
-                    [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
-                  paddingRight:10,paddingBottom:10,
-                  marginRight:5,marginBottom:5,marginLeft:5,
-                  borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
-                }>
-                      <View style={{flex:1,flexDirection:"row",paddingRight:20}}>
-                      <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
-                      {article?.featured_image && (
-                          <Image
-                          source={{uri:article.featured_image}}
-                          style={{width:50,height:80,flex:1}}/>
-                      )}
-                      </View>
        
-                      <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
-                          <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
-                             <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
-                              {article?.prime_category}
-                              </Text>
-                              <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
-                              {article.post_title}
-                               </Text>
-                           {/* <Text style={{ fontSize: 10, paddingTop:8 }}>
-                        {article?.post_author_name?.[0].author_name}
-                      </Text> */}
-                      </View>
-                          {/* <Text style={{fontSize:10,paddingTop:15}}>
-                              {article.post_date}
-                          </Text> */}
-                          
-                          {/* <Text style={{fontSize:5}}>
-                              {artic}
-                          </Text> */}
-                          {/* <Text style={{fontFamily:'MyBasicFOnt',fontSize:5}}>
-                              {article.}
-                          </Text> */}
-                      {/* </View>
-                      </View>
-                       </Pressable> */}
-                      
-                {/* ))} */}
-              {/* </View> */}
-              </View>
-              </View>
-              </Pressable>
-                  ))}
-              </View>
-       
-       <View style={{flexDirection:"column",justifyContent:"center",backgroundColor:"#15130fff",paddingTop:20,
-           paddingBottom:10,
-           marginBottom:5,
-           borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2,minHeight:500}}>
-             <Text style={{color:"#fff"}}>
-             Hellow from bottom
-             </Text>
-           </View>
-       
-       {/* </View> */}
        
 
     </SafeAreaView>

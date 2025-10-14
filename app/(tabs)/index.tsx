@@ -26,7 +26,7 @@ interface Article {
 
 //const [article, setArticle] = useState<Article | null>(null);
 const BUTTONS = [
-  { id: "news", label: "Home" },
+  { id: "home", label: "Home" },
   { id: "politics", label: "Politics" },
   { id: "economy", label: "Economy" },
   { id: "world", label: "World" },
