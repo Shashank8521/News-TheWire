@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFonts } from "expo-font";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { JSX, useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -20,42 +20,40 @@ interface Article {
 
 export default function Politics({}):JSX.Element {
   const {id} = useLocalSearchParams<{id:string}>()
-  const [query,setQuery]=useState<string>( "");
 // const [articles, setArticles] = useState<Article | null>(null);
 const[recent,setRecent]=useState<Record<string,Article>>({});
 const[highlight,setHighlight]=useState<Record<string,Article>>({});
 const[article1,setArticle1]=useState<Article | null>(null);
-const[search,setSearch]=useState<string>("");
 //    const [videoIds, setVideoIds] = useState<string[]>([]);
 const [html, setHtml] = useState<string>("")
 const [html2, setHtml2] = useState<string>("")
 const [html1, setHtml1] = useState<string>("")
 const { width } = useWindowDimensions(); // ✅ move inside component
 const[fontLoaded]=useFonts({
-    MyFontItalic:require("../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
-    MyFontBasic:require("../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
+    MyFontItalic:require("../../assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf"),
+    MyFontBasic:require("../../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
   //  MySuperBasic:require("../../assets/fonts/SpaceMono-Regular")
   })
 //   const playerHeight = Math.round((width * 9) / 16);
 var size
 useEffect(() => {
-  if(!search){
-    console.log("Type for searching");
+  if(!id){
+    console.log("something wrogn")
     return
   } 
     axios
-    .get(`https://wire-proxy-backend.onrender.com/search`,{params:{query:search}})
+    .get(`https://wire-proxy-backend.onrender.com/${id}`)
     .then((res) => {
         const first=(res.data)|| ""
         // setArticles(first.generic)
         // console.log(first.generic.length);
-        setHighlight(first["generic"]?.[0]);
-        setRecent(first["generic"]?.slice(1))
+        setHighlight(first["highlights"]);
+        setRecent(first["recent-stories"])
        
 
         // const postContent=articles.map[(data)=>]
         // setHtml(()=>first.generic.length)
-        setHtml1(()=>first["generic"]?.[0].ID)
+        setHtml1(()=>first.highlights["0"].ID)
         // setHtml2(()=>first["recent-stories"]["0"])
 
 
@@ -68,7 +66,7 @@ useEffect(() => {
 )
 .catch((err) => console.error(err));
   
-}, [search]);
+}, [id]);
 //    const htmlWithoutIframes = html.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
 
 
@@ -93,19 +91,8 @@ const handlePress =(article:Article)=>{
       <View style={{marginBottom:10}}>
       <View style={{ paddingHorizontal: 0,}}>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
-          Welcome to Menu
+          Articles from World
           </Text>
-          <TextInput placeholder="Search..." value={search} onChangeText={setSearch} 
-          style={{ borderWidth: 1,height:30, borderColor: "#140505ff", borderRadius: 5, padding: 2 }} />
-          <Pressable onPress={()=>setSearch(search)} style={({pressed})=>
-      [{alignItems:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",padding:10,marginTop:10,
-    marginBottom:5,
-    borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
-  }>
-            <View>
-            <Text style={({})}> Search</Text>
-            </View>
-            </Pressable>
           <View>
             {Object.values(highlight)
             .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
@@ -119,6 +106,9 @@ const handlePress =(article:Article)=>{
     marginBottom:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
   }>
+    <Text style={{fontSize:20,fontWeight:"600",color:"#97032191",paddingBottom:8,paddingTop:5,paddingLeft:6}}>
+                              {article?.prime_category?.[0]?.name}
+                              </Text>
 
         {/* {/* </Text>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>

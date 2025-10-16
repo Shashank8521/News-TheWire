@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 
-export default function CategoryPage() {
+export  function CategoryPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   return (

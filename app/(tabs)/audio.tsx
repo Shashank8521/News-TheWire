@@ -18,7 +18,7 @@ interface Article {
   post_excerpt?: string;
   date_time_display?:string;
   post_name:string;
-  prime_category?:{name:string,slug:string}[]
+  prime_category?:{name?:string,slug?:string}[]
 
 }
 interface Related {
@@ -126,9 +126,10 @@ const handlePress2 = (related:Related)=>{
     axios.get(`https://wire-proxy-backend.onrender.com/related/${encodeURIComponent(`${category}/${postname}`)}`)])
 
       // .then(
-        setArticles(res1.data["post-detail"][0])
+      const postDetail = res1.data?.["post-detail"]?.[0] ?? null
+        setArticles(postDetail)
        
-        const postContent=(res1.data?.post_content) ||"" 
+        const postContent=(postDetail.post_content) ||"" 
         setHtml(postContent)
          const ids = extractYouTubeIdsFromHtml(postContent);
          if(ids){
@@ -142,9 +143,10 @@ const handlePress2 = (related:Related)=>{
     }
 
     fetchData()
+  //  videoIds.map((id) => console.log("YouTube ID:", id));
       
       
-}, []);
+}, [article1]);
 
 
 
@@ -155,8 +157,12 @@ const handlePress2 = (related:Related)=>{
     <SafeAreaView style={{ marginTop: 0 }}>
       <View style={{ paddingHorizontal: 10 }}>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
-          Articles from Express/
+          Articles from Express
         </Text>
+
+        <Text style={{fontSize:20,fontWeight:"600",color:"#97032191",paddingBottom:8,paddingTop:5,paddingLeft:6}}>
+                              {articles?.prime_category?.[0]?.name}
+                              </Text>
 
         <Text style={{ fontFamily:'MyBasicFont',paddingTop: 2, fontWeight: "bold", fontSize: 25 ,paddingLeft:6}}>
           {articles?.post_title}
@@ -246,130 +252,71 @@ const handlePress2 = (related:Related)=>{
           <Text style={{ color: "gray" }}></Text>
         </View>
       )}
-      {/* <View style={{paddingLeft:6}}>
-        <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
-          Related Articles
-        </Text>
-       <View> */}
-        
-           {/* {related.map((article: Related, index: number) => (
-       
-           <Pressable key={article.ID ?? index} onPress={()=>handlePress2(article) }
-           // android_ripple={{color:'#1D4ED8'}} 
-           style=
-           {({pressed})=>
-             [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
-           paddingRight:10,paddingBottom:10,
-           marginRight:5,marginBottom:5,marginLeft:5,
-           borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
-         }> */}
-               {/* <View style={{flex:1,flexDirection:"row",paddingRight:20}}> */}
-               {/* <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}> */}
-               {/* {article?.featured_image && (
-                   <Image
-                   source={{uri:article.featured_image}}
-                   style={{width:50,height:80,flex:1}}/>
-               )} */}
-               {/* </View> */}
-               {/* <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
-                   <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
-                   <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
-                       {article?.prime_category}
-                   </Text>
-                   <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
-                       {article.post_title}
-                   </Text> */}
-                    {/* <Text style={{ fontSize: 10, paddingTop:8 }}>
-                 {article?.post_author_name?.[0].author_name}
-               </Text> */}
-               {/* </View> */}
-                   {/* <Text style={{fontSize:10,paddingTop:15}}>
-                       {article.post_date}
-                   </Text> */}
-                   
-                   {/* <Text style={{fontSize:5}}>
-                       {artic}
-                   </Text> */}
-                   {/* <Text style={{fontFamily:'MyBasicFOnt',fontSize:5}}>
-                       {article.}
-                   </Text> */}
-               {/* </View>
-               </View>
-                </Pressable> */}
-               
-         {/* ))} */}
-       {/* </View> */}
-         <View style={{paddingLeft:6}}>
-               <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
-                 Related Articles
-               </Text>
-       
+       <View style={{paddingLeft:6,paddingTop:40}}>
+              <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
+                Related Articles
+              </Text>
+      
+      
+                 {related.map((article: Related, index: number) => (
+                  
              
-               
-                  {related.map((article: Related, index: number) => (
-              
-                  <Pressable key={article.ID ?? index} onPress={()=>handlePress2(article) }
-                  // android_ripple={{color:'#1D4ED8'}} 
-                  style=
-                  {({pressed})=>
-                    [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
-                  paddingRight:10,paddingBottom:10,
-                  marginRight:5,marginBottom:5,marginLeft:5,
-                  borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
-                }>
-                      <View style={{flex:1,flexDirection:"row",paddingRight:20}}>
-                      <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
-                      {article?.featured_image && (
-                          <Image
-                          source={{uri:article.featured_image}}
-                          style={{width:50,height:80,flex:1}}/>
-                      )}
-                      </View>
-       
-                      <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
-                          <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
-                             <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
-                              {article?.prime_category}
+                 <Pressable key={article.ID ?? index} onPress={()=>handlePress2(article) }
+                 // android_ripple={{color:'#1D4ED8'}} 
+                 style=
+                 {({pressed})=>
+                   [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
+                 paddingRight:10,paddingBottom:10,
+                 marginRight:5,marginBottom:5,marginLeft:5,
+                 borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
+               }>
+                  
+                     <View style={{flex:1,flexDirection:"row",paddingRight:20}}>
+                     <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",marginLeft:10}}>
+                     {article?.featured_image && (
+                         <Image
+                         source={{uri:article.featured_image}}
+                         style={{width:50,height:80,flex:1}}/>
+                     )}
+                     </View>
+      
+                     <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
+                         <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
+                            <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
+                             {article?.prime_category}
+                             </Text>
+                             <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
+                             {article.post_title}
                               </Text>
-                              <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
-                              {article.post_title}
-                               </Text>
-                           {/* <Text style={{ fontSize: 10, paddingTop:8 }}>
-                        {article?.post_author_name?.[0].author_name}
-                      </Text> */}
-                      </View>
-                          {/* <Text style={{fontSize:10,paddingTop:15}}>
-                              {article.post_date}
-                          </Text> */}
-                          
-                          {/* <Text style={{fontSize:5}}>
-                              {artic}
-                          </Text> */}
-                          {/* <Text style={{fontFamily:'MyBasicFOnt',fontSize:5}}>
-                              {article.}
-                          </Text> */}
-                      {/* </View>
-                      </View>
-                       </Pressable> */}
-                      
-                {/* ))} */}
-              {/* </View> */}
-              </View>
-              </View>
-              </Pressable>
-                  ))}
-              </View>
+                          {/* <Text style={{ fontSize: 10, paddingTop:8 }}>
+                       {article?.post_author_name?.[0].author_name}
+                     </Text> */}
+                     </View>
+                         {/* <Text style={{fontSize:10,paddingTop:15}}>
+                             {article.post_date}
+                         </Text> */}
+                         
+                         {/* <Text style={{fontSize:5}}>
+                             {artic}
+                         </Text> */}
+                         {/* <Text style={{fontFamily:'MyBasicFOnt',fontSize:5}}>
+                             {article.}
+                         </Text> */}
+                     {/* </View>
+                     </View>
+                      </Pressable> */}
+                     
+               {/* ))} */}
+             {/* </View> */}
+             </View>
+             </View>
+             </Pressable>
+                 ))}
+             </View>
+    
        
-       <View style={{flexDirection:"column",justifyContent:"center",backgroundColor:"#15130fff",paddingTop:20,
-           paddingBottom:10,
-           marginBottom:5,
-           borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2,minHeight:500}}>
-             <Text style={{color:"#fff"}}>
-             Hellow from bottom
-             </Text>
-           </View>
-       
-       {/* </View> */}
+               
+      
        
 
     </SafeAreaView>

@@ -136,24 +136,24 @@ return (
         {/* Horizontal buttons */}
         <View style={{marginBottom: 2,flex:0}}>
 
-          <ScrollView
+          {/* <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={ { flexWrap:"wrap",alignItems:"flex-start",paddingLeft:1,paddingRight:1,}}
             // snapToInterval={itemWidth + 12} // optional snapping
             decelerationRate="fast"
-          >
-            {BUTTONS.map((b,i) => (
-                <View key={b.id} style={{ flexDirection: "row", alignItems:"flex-start",justifyContent:'flex-start' }}>
+          > */}
+            {/* {BUTTONS.map((b,i) => (
+                <View key={b.id} style={{ flexDirection: "row", alignItems:"flex-start",justifyContent:'flex-start' }}> */}
 
-              <Pressable
+              {/* <Pressable
                 key={b.id}
                 style={({pressed})=>[styles.button,{borderBottomColor:pressed ? "#000" : "#fff",backgroundColor:pressed ? "#444" :"#08cc43ff" }]}
                 onPress={() => handlePress(b.id)}
                 // activeOpacity={0.75}
               >
                 <Text style={{fontSize:15}}>{b.label}</Text>
-              </Pressable>
+              </Pressable> */}
               
             
              {/* {i < BUTTONS.length - 1 && (
@@ -166,9 +166,9 @@ return (
                     }} />
              )
             } */}
-            </View>
+            {/* </View>
             ))
-            }
+            } */}
             {/* <View>
              <Text> hello from home</Text>
               <Text> hello from home</Text>
@@ -183,7 +183,7 @@ return (
                       <Text> hello from home</Text>
                        <Text> hello from home</Text>
                        </View> */}
-            </ScrollView>
+            {/* </ScrollView> */}
 
                <View>
              <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
@@ -193,7 +193,7 @@ return (
                         {Object.values(highlight)
                         .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                         .map((article1: Article, index: number) => (
-                         <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                         <Pressable key={`${article1.ID ?? "noid"}-${index}`} onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
                 {({pressed})=>
@@ -357,7 +357,7 @@ return (
                      .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                      .map((article1: Article, index: number) => (
                  
-                     <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                     <Pressable key={`${article1.ID ?? "noid"}-${index}`} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>
@@ -425,7 +425,7 @@ return (
                      .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                      .map((article1: Article, index: number) => (
                  
-                     <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                     <Pressable key={`${article1.ID ?? "noid"}-${index}`} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>
@@ -487,7 +487,7 @@ return (
                         .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                         .map((article1: Article, index: number) => (
                           <View>
-                         <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                         <Pressable key={`${article1.ID ?? "noid"}-${index}`} onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
                 {({pressed})=>
@@ -574,7 +574,7 @@ return (
                      .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                      .map((article1: Article, index: number) => (
                  
-                     <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                     <Pressable key={`${article1.ID ?? "noid"}-${index}`} onPress={()=>handlePress2(article1) }
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>

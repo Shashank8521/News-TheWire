@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
@@ -50,7 +51,7 @@ const[activebutton,setActivebutton] = useState("home");
     })}
     else{
       router.push({
-        pathname:"/World",
+        pathname:"/(tabs)/World",
         params :{id}
       })
     }
@@ -120,8 +121,8 @@ export default function RootLayout() {
        headerLeft:() => (
         <Pressable
         onPress={handlePress2}
-        style={{backgroundColor:"#333",marginRight:10,}}>
-          <Text style={{color:"#fff"}}>GO</Text>
+        style={{marginRight:10,}}>
+           <Ionicons name="search" size={24} color="#0f0c0cff" />
         </Pressable>
        ),
       headerTitle:()=><SmallBrandTitle/>,

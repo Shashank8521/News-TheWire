@@ -15,7 +15,7 @@ interface Article {
   post_author_name?: { author_name: string; cd?: string; pl?: string }[];
   post_excerpt?: string;
 }
-export default function Politics():JSX.Element {
+export  function Politics():JSX.Element {
 // const [articles, setArticles] = useState<Article | null>(null);
 const[highlight,setHighlight]=useState<Record<string,Article>>({});
 const[recent,setRecent]=useState<Record<string,Article>>({});
