@@ -38,7 +38,7 @@ export function Butt(){
   { id: "science" , label: "Science" },
   { id: "society", label: "Society" },
   { id: "culture", label: "Culture" },
-  { id: "more", label: "More" },
+  // { id: "more", label: "More" },
 ]
 const[activebutton,setActivebutton] = useState("home");
 

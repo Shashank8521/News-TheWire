@@ -91,7 +91,7 @@ const handlePress =(article:Article)=>{
       <View style={{marginBottom:10}}>
       <View style={{ paddingHorizontal: 0,}}>
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
-          Articles from World
+          Articles from {id}
           </Text>
           <View>
             {Object.values(highlight)

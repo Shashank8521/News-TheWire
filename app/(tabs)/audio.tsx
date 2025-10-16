@@ -251,7 +251,12 @@ const handlePress2 = (related:Related)=>{
         <View style={{ marginBottom: 12 }}>
           <Text style={{ color: "gray" }}></Text>
         </View>
+
       )}
+      <View style={{flexDirection :"row",justifyContent:"center",paddingTop:20,paddingBottom:20,}}>
+        <Text style={{fontSize:25,color:"#444"}}>
+                  End of article 
+                </Text></View>
        <View style={{paddingLeft:6,paddingTop:40}}>
               <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>
                 Related Articles
@@ -282,9 +287,9 @@ const handlePress2 = (related:Related)=>{
       
                      <View style={{flex:2,justifyContent:"space-between",marginLeft:10,marginBottom:"auto"}}>
                          <View style={{ flex:1,flexDirection:"column",justifyContent:'space-between',alignItems:"flex-start"}}>
-                            <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
+                            {/* <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
                              {article?.prime_category}
-                             </Text>
+                             </Text> */}
                              <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
                              {article.post_title}
                               </Text>
@@ -312,7 +317,18 @@ const handlePress2 = (related:Related)=>{
              </View>
              </Pressable>
                  ))}
+
+                
              </View>
+
+             <View style={{flexDirection:"column",justifyContent:"center",backgroundColor:"#15130fff",paddingTop:20,
+    paddingBottom:10,
+    marginBottom:5,
+    borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2,minHeight:500}}>
+      <Text style={{color:"#fff"}}>
+      Hellow from bottom
+      </Text>
+    </View>
     
        
                
