@@ -93,6 +93,7 @@ const handlePress =(article:Article)=>{
         <Text style={{ fontWeight: "bold", fontSize: 30, fontFamily: "MyFontBasic" }}>
           Articles from {id}
           </Text>
+          
           <View>
             {Object.values(highlight)
             .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)

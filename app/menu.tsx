@@ -22,8 +22,8 @@ export default function Politics({}):JSX.Element {
   const {id} = useLocalSearchParams<{id:string}>()
   const [query,setQuery]=useState<string>( "");
 // const [articles, setArticles] = useState<Article | null>(null);
-const[recent,setRecent]=useState<Record<string,Article>>({});
-const[highlight,setHighlight]=useState<Record<string,Article>>({});
+const[recent,setRecent]=useState<Article[]>([]);
+const[highlight,setHighlight]=useState<Article |null>(null);
 const[article1,setArticle1]=useState<Article | null>(null);
 const[search,setSearch]=useState<string>("");
 //    const [videoIds, setVideoIds] = useState<string[]>([]);
@@ -46,16 +46,18 @@ useEffect(() => {
     axios
     .get(`https://wire-proxy-backend.onrender.com/search`,{params:{query:search}})
     .then((res) => {
-        const first=(res.data)|| ""
+        // const first=(res.data)|| ""
+        const generic = Array.isArray(res.data?.generic) ? res.data.generic : [];
+
         // setArticles(first.generic)
         // console.log(first.generic.length);
-        setHighlight(first["generic"]?.[0]);
-        setRecent(first["generic"]?.slice(1))
+        setHighlight(generic[0] ?? null);
+        setRecent(generic.slice(1))
        
 
         // const postContent=articles.map[(data)=>]
         // setHtml(()=>first.generic.length)
-        setHtml1(()=>first["generic"]?.[0].ID)
+        // setHtml1(()=>generic[0].ID)
         // setHtml2(()=>first["recent-stories"]["0"])
 
 
@@ -76,6 +78,7 @@ useEffect(() => {
   const router = useRouter()
 
 const handlePress =(article:Article)=>{
+  if(!article) return;
   router.push({
     pathname:"/(tabs)/audio",
     params:{article1:JSON.stringify(article)}
@@ -106,11 +109,19 @@ const handlePress =(article:Article)=>{
             <Text style={({})}> Search</Text>
             </View>
             </Pressable>
+         
+            <View>
+              
+            
           <View>
-            {Object.values(highlight)
-            .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
-            .map((article: Article, index: number) => (
-             <Pressable key={article.ID ?? index} onPress={()=>handlePress(article) }
+               {(!highlight) ? (
+                 <Text> No results found </Text>
+              ):(
+            
+            // Object.values(highlight)
+            // .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
+            // .map((article: Article, index: number) => (
+             <Pressable key={highlight?.ID } onPress={()=>handlePress(highlight) }
     // android_ripple={{color:'#3b3c3eff'}} 
     style=
     {({pressed})=>
@@ -131,9 +142,9 @@ const handlePress =(article:Article)=>{
         <Text style={{fontWeight:"bold",fontSize:30,fontFamily:"MyFontBasic"}}>
             {html2}
         </Text> */}
-         {article?.featured_image?.source_url && (
+         {highlight?.featured_image?.source_url && (
         <Image
-          source={{ uri: article.featured_image.source_url }}
+          source={{ uri: highlight.featured_image.source_url }}
           style={{
             width: width,
             height: width * 0.6,
@@ -143,7 +154,7 @@ const handlePress =(article:Article)=>{
       )}
        <View style={{marginHorizontal:10 }}>
         <Text style={{ fontFamily:'MyBasicFont',paddingTop: 2, fontWeight: "bold", fontSize: 25 }}>
-          {article?.post_title}
+          {highlight?.post_title}
         </Text>
 
         {/* <Text style={{ marginTop: 15, marginBottom: 15 }}>
@@ -151,10 +162,10 @@ const handlePress =(article:Article)=>{
         </Text> */}
 
         <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 5 }}>
-          {article?.post_author_name?.[0].author_name}
+          {highlight?.post_author_name?.[0].author_name}
         </Text>
         <Text style={{fontSize:10,paddingTop:15}}>
-                {article.post_date}
+                {highlight?.post_date}
             </Text>
         </View>
 
@@ -165,17 +176,21 @@ const handlePress =(article:Article)=>{
 
       
       </Pressable>
-            ))}
+        )}
+            
+          
       </View>
       
       
       
     <View>
-    {Object.values(recent)
+      {(recent.length ===0) ? (<Text> No recent articles found </Text>) : (
+    (recent)
     .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
     .map((article: Article, index: number) => (
 
-    <Pressable key={article.ID ?? index} onPress={()=>handlePress(article) }
+      
+    <Pressable key={article?.ID ? String(article.ID) : `fallback-${index}`} onPress={()=>handlePress(article) }
     // android_ripple={{color:'#1D4ED8'}} 
     style=
     {({pressed})=>
@@ -218,8 +233,11 @@ const handlePress =(article:Article)=>{
         </View>
          </Pressable>
         
-  ))}
+  ))
+)}
 </View>
+</View>
+              
 
 <View style={{flexDirection:"column",justifyContent:"center",backgroundColor:"#15130fff",paddingTop:20,
     paddingBottom:10,
