@@ -19,12 +19,8 @@ function SmallBrandTitle(){
 </>
   )
 }
-const router = useRouter()
- const handlePress2 = () => {
-    router.push({
-      pathname : "/menu"
-    })
-   }
+
+
 
 
 export function Butt(){
@@ -110,6 +106,14 @@ const[activebutton,setActivebutton] = useState("home");
 // 
 
 export default function RootLayout() {
+  // const router = useRouter();
+  const router = useRouter()
+ const handlePress2 = () => {
+    router.push({
+      pathname : "/menu"
+    })
+   }
+  
   return (
     <>
 

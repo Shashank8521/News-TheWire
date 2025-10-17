@@ -143,9 +143,12 @@ const handlePress =(article:Article)=>{
         <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 5 }}>
           {article?.post_author_name?.[0].author_name}
         </Text>
-        <Text style={{fontSize:10,paddingTop:15}}>
-                {article.post_date}
-            </Text>
+         <Text style={{fontSize:10,paddingTop:10}}>
+                             { article.post_date ? new Date ( article.post_date).toLocaleDateString("en-US", {
+                              day: "2-digit",
+                              month: "short",
+                              }):"N/A"}
+                        </Text>
         </View>
 
         {/* <Text style={{ fontSize: 15, marginTop: 10, fontWeight: "500", marginBottom: 10, fontFamily: "MyFontItalic" }}>
@@ -190,7 +193,7 @@ const handlePress =(article:Article)=>{
             <Text style={{fontFamily:'MyBasicFOnt',fontWeight:'bold',fontSize:15}}>
                 {article.post_title}
             </Text>
-             <Text style={{ fontSize: 10, paddingTop:8 }}>
+             <Text style={{ fontSize: 14,fontWeight:'400', paddingTop:8 ,color:"#8a8787ff"}}>
           {article?.post_author_name?.[0].author_name}
         </Text>
         </View>

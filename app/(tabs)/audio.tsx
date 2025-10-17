@@ -255,7 +255,7 @@ const handlePress2 = (related:Related)=>{
       )}
       <View style={{flexDirection :"row",justifyContent:"center",paddingTop:20,paddingBottom:20,}}>
         <Text style={{fontSize:25,color:"#444"}}>
-                  End of article 
+                  ---End of article--- 
                 </Text></View>
        <View style={{paddingLeft:6,paddingTop:40}}>
               <Text style={{fontSize:30,fontWeight:"heavy",color:"#9c1717ff"}}>

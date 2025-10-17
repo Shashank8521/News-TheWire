@@ -214,6 +214,9 @@ return (
                     <Text style={{fontWeight:"bold",fontSize:30,fontFamily:"MyFontBasic"}}>
                         {html2}
                     </Text> */}
+                     <Text style={{ fontFamily:'MyBasicFont',color:"#97032191",paddingTop: 0,paddingBottom:8, fontWeight: "bold", fontSize: 15, }} numberOfLines={3}>
+                      {article1?.prime_category?.[0].name}
+                    </Text>
                        {article1?.featured_image?.source_url && (
                         <Image
                         source = {{uri:article1.featured_image.source_url}}
@@ -226,10 +229,10 @@ return (
                    )}
 
                    <View style={{marginHorizontal:10 }}>
-                    <Text style={{ fontFamily:'MyBasicFont',paddingTop: 2, fontWeight: "bold", fontSize: 25 }}>
+                    <Text style={{ fontFamily:'MyBasicFont',paddingTop: 2,color:"#000", fontWeight: "bold", fontSize: 25 }}>
                       {article1?.post_title}
                     </Text>
-                    <Text style={{ fontSize: 15, marginTop: 10, fontWeight: "500", paddingBottom: 20, fontFamily: "MyFontBasic" }}>
+                    <Text style={{ fontSize: 15, marginTop: 10, fontWeight: "500",color:"#000", paddingBottom: 20, fontFamily: "MyFontBasic" }}>
                       {article1?.post_excerpt}
                     </Text>
             
@@ -240,8 +243,11 @@ return (
                     <Text style={{ fontSize: 15, fontWeight: "700", paddingBottom: 5 }}>
                       {article1?.post_author_name?.[0].author_name}
                     </Text>
-                    <Text style={{fontSize:10,paddingTop:15}}>
-                            {article1.post_date}
+                    <Text style={{fontSize:10}}>
+                             { article1.post_date ? new Date ( article1.post_date).toLocaleDateString("en-US", {
+                              day: "2-digit",
+                              month: "short",
+                              }):"N/A"}
                         </Text>
                     </View>
             
@@ -274,8 +280,8 @@ return (
                         {Object.values(editorschoice)
                         .filter((a:any) => typeof a === "object" && a != null && "post_title" in a)
                         .map((article1: Article, index: number) => (
-                          <View>
-                         <Pressable key={article1.ID ?? index} onPress={()=>handlePress2(article1) }
+                          <View key={`${article1.ID ?? "noid"}-${index}`}>
+                         <Pressable onPress={()=>handlePress2(article1) }
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
                 {({pressed})=>
@@ -316,10 +322,11 @@ return (
                           resizeMode: "cover"
                         }}
                        />
+                            //  <Text style={{fontSize:15,fontWeight:"400",color:"#97032191",paddingBottom:8}}>
                    )}
 
                    <View style={{marginHorizontal:10 }}>
-                    <Text style={{ fontFamily:'MyBasicFont',color:index===0 ? "#fff" : "#1e1616ff",paddingTop: 2, fontWeight: "bold", fontSize: 15, }} numberOfLines={3}>
+                    <Text style={{ fontFamily:'MyBasicFont',color:index===0 ? "#fff" : "#97032191",paddingTop: 2, fontWeight: "bold", fontSize: 15, }} numberOfLines={3}>
                       {article1?.prime_category?.[0].name}
                     </Text>
                     <Text style={{ fontFamily:'MyBasicFont',color:index===0 ? "#fff" : "#1e1616ff",paddingTop: 2, fontWeight: "bold", fontSize: 15, }} numberOfLines={3}>
@@ -336,8 +343,14 @@ return (
                     {/* <Text style={{color:index===0 ? "#fff" : "#1e1616ff",fontSize: 15, fontWeight: "700", paddingBottom: 5 }}>
                       {article1?.post_author_name?.[0].author_name}
                     </Text> */}
-                    <Text style={{color:index===0 ? "#fff" : "#1e1616ff",fontSize:10,paddingTop:15}}>
+                    {/* <Text style={{color:index===0 ? "#fff" : "#1e1616ff",fontSize:10,paddingTop:15}}>
                             {article1.post_date}
+                        </Text> */}
+                        <Text style={{fontSize:10,color: index===0?"#fff":"#1e1616ff",paddingTop:10}}>
+                             { article1.post_date ? new Date ( article1.post_date).toLocaleDateString("en-US", {
+                              day: "2-digit",
+                              month: "short",
+                              }):"N/A"}
                         </Text>
                     </View>
             
