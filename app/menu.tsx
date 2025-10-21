@@ -115,7 +115,7 @@ const handlePress =(article:Article)=>{
             
           <View>
                {(!highlight) ? (
-                 <Text> No results found </Text>
+                 <Text></Text>
               ):(
             
             // Object.values(highlight)
