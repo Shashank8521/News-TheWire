@@ -647,12 +647,10 @@ return (
             Your home page content goes here. The row above is only on the Home page.
           </Text>
         </View> */}
-        <Text> hello from home</Text>
       </View>
       <View>
-       <Text> hello from home10</Text>
-       </View> 
-              </View>
+      </View> 
+      </View>
               
 
        
