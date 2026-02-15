@@ -197,7 +197,7 @@ return (
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
                 {({pressed})=>
-                  [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f0e1bfff",paddingTop:20,
+                  [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f0e1bfff",paddingTop:20,
                 paddingBottom:10,
                 marginBottom:5,
                 borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -285,7 +285,7 @@ return (
                 // android_ripple={{color:'#3b3c3eff'}} 
                 style=
                 {({pressed})=>
-                  [{flexDirection:"column",justifyContent:"center",backgroundColor: index===0 ? "#a60606ff": pressed ? "#1D4ED8":"#f0e1bfff",paddingTop:20,
+                  [{flexDirection:"column",justifyContent:"center",backgroundColor: index===0 ? "#a60606ff": pressed ? "rgb(235, 210, 153)":"#f0e1bfff",paddingTop:20,
                 paddingBottom:10,width:width * 0.6,
                 marginBottom:5,marginLeft:10,
                 borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -374,7 +374,7 @@ return (
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>
-                       [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
+                       [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f6efdeff",paddingTop:20,
                      paddingRight:10,paddingBottom:10,
                      marginRight:5,marginBottom:5,marginLeft:5,
                      borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -442,7 +442,7 @@ return (
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>
-                       [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
+                       [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f6efdeff",paddingTop:20,
                      paddingRight:10,paddingBottom:10,
                      marginRight:5,marginBottom:5,marginLeft:5,
                      borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -591,7 +591,7 @@ return (
                      // android_ripple={{color:'#1D4ED8'}} 
                      style=
                      {({pressed})=>
-                       [{flexDirection:'row',backgroundColor:pressed ? "#1D4ED8":"#f0e1bfff",paddingTop:30,
+                       [{flexDirection:'row',backgroundColor:pressed ? "rgb(235, 210, 153)":"#f0e1bfff",paddingTop:30,
                      paddingRight:5,paddingBottom:10,
                      marginRight:5,marginBottom:5,marginLeft:5,
                      borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -647,12 +647,10 @@ return (
             Your home page content goes here. The row above is only on the Home page.
           </Text>
         </View> */}
-        <Text> hello from home</Text>
       </View>
       <View>
-       <Text> hello from home10</Text>
-       </View> 
-              </View>
+      </View> 
+      </View>
               
 
        
