@@ -141,7 +141,7 @@ export default function RootLayout() {
        <View
         style={{
           position: "absolute",
-          top: 70, // adjust based on your header height
+          top: 48, // adjust based on your header height
           left: 0,
           right: 0,
           alignItems: "center",
