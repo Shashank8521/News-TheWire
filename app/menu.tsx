@@ -101,7 +101,7 @@ const handlePress =(article:Article)=>{
           <TextInput placeholder="Search..." value={search} onChangeText={setSearch} 
           style={{ borderWidth: 1,height:30, borderColor: "#140505ff", borderRadius: 5, padding: 2 }} />
           <Pressable onPress={()=>setSearch(search)} style={({pressed})=>
-      [{alignItems:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",padding:10,marginTop:10,
+      [{alignItems:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f6efdeff",padding:10,marginTop:10,
     marginBottom:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
   }>
@@ -125,7 +125,7 @@ const handlePress =(article:Article)=>{
     // android_ripple={{color:'#3b3c3eff'}} 
     style=
     {({pressed})=>
-      [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
+      [{flexDirection:"column",justifyContent:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f6efdeff",paddingTop:20,
     paddingBottom:10,
     marginBottom:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
@@ -194,7 +194,7 @@ const handlePress =(article:Article)=>{
     // android_ripple={{color:'#1D4ED8'}} 
     style=
     {({pressed})=>
-      [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "#1D4ED8":"#f6efdeff",paddingTop:20,
+      [{flexDirection:"row",justifyContent:"center",backgroundColor:pressed ? "rgb(235, 210, 153)":"#f6efdeff",paddingTop:20,
     paddingRight:10,paddingBottom:10,
     marginRight:5,marginBottom:5,marginLeft:5,
     borderBottomWidth:0.2,borderColor:"#444",shadowOpacity:0.1,elevation:2}]
